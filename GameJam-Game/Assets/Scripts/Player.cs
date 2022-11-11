@@ -1,34 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 1.5f;
-    public GameObject player;
-    void Update()
+    public Rigidbody m_Rigidbody;
+    public float m_Speed = 5f;
+    public Vector3 inn;
+    void Start()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
+        
+        m_Rigidbody = GetComponent<Rigidbody>();
+    }
 
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector3.back * Time.deltaTime * moveSpeed);
-
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
-
-        }
-
-
+    void FixedUpdate()
+    {
+        Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        m_Rigidbody.MovePosition(transform.position + m_Input * Time.deltaTime * m_Speed);
+        inn = m_Input;
     }
 }
